@@ -1,15 +1,30 @@
-Welcome to your new dbt project!
+# T24 Data Vault 2.0
 
-### Using the starter project
+A Data Vault 2.0 implementation in dbt over Temenos T24 core banking data, running on PostgreSQL.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## Structure
 
+- `models/l01_staging/` — staging models with hash key generation
+- `models/l02_raw_vault/` — hubs, links, and satellites
+  - `hubs/` — business entities (customer, account, branch) plus reference hubs
+  - `links/` — relationships between hubs, including a transactional link for statement entries
+  - `satellites/` — descriptive attributes, historized and non-historized
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+## Sources
+
+Three T24 tables: `fbnk_customer`, `fbnk_account`, `fbnk_stmt_entry`, plus reference code lists.
+
+## Built with
+
+- dbt-core with the postgres adapter
+- [AutomateDV](https://automate-dv.readthedocs.io/) for hub/link/satellite macros
+- dbt_utils for composite key testing
+
+## Running
+
+```bash
+dbt deps
+dbt seed
+dbt run
+dbt test
+```
