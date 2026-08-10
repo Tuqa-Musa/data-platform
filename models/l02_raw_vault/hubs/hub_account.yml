@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: hub_account
+    description: "Hub table for Account business entities."
+    columns:
+      - name: account_hk
+        description: "Hash key for account, primary key of the hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_account')
+              field: account_hk
+
+      - name: recid
+        description: "Business key from source system."
+        tests:
+          - not_null
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

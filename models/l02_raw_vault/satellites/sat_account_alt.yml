@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: sat_account_alt
+    description: "Alternative account identifiers, historized."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_hk
+            - load_dts
+    columns:
+      - name: account_hk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: account_hk
+      - name: load_dts
+        tests:
+          - not_null
+      - name: alt_hashdiff
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null

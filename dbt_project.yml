@@ -1,0 +1,176 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 't24_vault'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 't24_vault'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+seeds:
+  t24_vault:
+    +docs:
+      node_color: "#800080"
+    fbnk_account:
+      +column_types:
+        recid: varchar
+        curr_no: varchar
+        customer: varchar
+        category: varchar
+        currency: varchar
+        opening_date: varchar
+        closure_date: varchar
+        short_title: varchar
+        account_title_1: varchar
+        arabic_title: varchar
+        alt_acct_id_1: varchar
+        alt_acct_type_1: varchar
+        alt_acct_id_2: varchar
+        alt_acct_type_2: varchar
+        account_officer: varchar
+        co_code: varchar
+        limit_ref: varchar
+        online_actual_bal: varchar
+        online_cleared_bal: varchar
+        open_actual_bal: varchar
+        working_balance: varchar
+        prev_bal: varchar
+        record_status: varchar
+        closed_online: varchar
+        inactiv_marker: varchar
+        posting_restrict: varchar
+        date_last_update: varchar
+        inputter: varchar
+        authoriser: varchar
+        source_system: varchar
+        source_table: varchar
+        ingested_ts: varchar
+        created_ts: varchar
+        created_dt: varchar
+    fbnk_customer:
+      +column_types:
+        recid: varchar
+        curr_no: varchar
+        short_name: varchar
+        arabic_name: varchar
+        genders: varchar
+        birth_incorp_date: varchar
+        nat_security_number: varchar
+        id_type: varchar
+        id_number: varchar
+        nationality: varchar
+        sector: varchar
+        profession: varchar
+        customer_status: varchar
+        risk_rate: varchar
+        account_officer: varchar
+        company_book: varchar
+        emploee_no: varchar
+        telephone_1: varchar
+        telephone_2: varchar
+        sms_1: varchar
+        email_address: varchar
+        email_1: varchar
+        drmnt_code: varchar
+        drmnt_date: varchar
+        posting_restrict_1: varchar
+        posting_restrict_2: varchar
+        peps: varchar
+        commercial_registration_no: varchar
+        licence_expiry_date: varchar
+        opening_date: varchar
+        update_date: varchar
+        inputter: varchar
+        authoriser: varchar
+        source_system: varchar
+        source_table: varchar
+        ingested_ts: varchar
+        created_ts: varchar
+        created_dt: varchar
+    fbnk_stmt_entry:
+      +column_types:
+        recid: varchar
+        account_number: varchar
+        customer_id: varchar
+        product_category: varchar
+        transaction_code: varchar
+        currency: varchar
+        amount_lcy: varchar
+        amount_fcy: varchar
+        exchange_rate: varchar
+        booking_date: varchar
+        value_date: varchar
+        processing_date: varchar
+        exposure_date: varchar
+        system_date_time: varchar
+        our_reference: varchar
+        their_reference: varchar
+        trans_reference: varchar
+        reversal_marker: varchar
+        narrative: varchar
+        cheque_number: varchar
+        chq_type: varchar
+        counterparty: varchar
+        account_officer: varchar
+        company_code: varchar
+        position_type: varchar
+        system_id: varchar
+        inputter: varchar
+        authoriser: varchar
+        source_system: varchar
+        source_table: varchar
+        ingested_ts: varchar
+        created_ts: varchar
+        created_dt: varchar
+vars:
+  hash: MD5
+  concat_string: '||'
+  null_placeholder_string: '^^'
+
+
+
+models:
+  t24_vault:
+    l01_staging:
+      +materialized: view
+      +docs:
+        node_color: "#4A90D9"   # blue — staging models
+    l02_raw_vault:
+      hubs:
+        +docs:
+          node_color: "#5DBB63"   # green — hub_account, hub_customer, hub_branch
+
+      links:
+        +docs:
+          node_color: "#F5A623"   # orange — link_customer_account, link_account_branch
+
+      satellites:
+        +docs:
+          node_color: "#FF0000"   # purple — sat_account_detail, sat_customer_status, etc.
+
+      refs:
+        +docs:
+          node_color: "#D9822B"   # amber — ref_sub_product_category, ref_sub_account_officer, ref_sub_transaction_code
+    +materialized: incremental

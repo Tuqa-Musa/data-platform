@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: ref_hub_product_category
+    description: "Reference hub for product category codes."
+    columns:
+      - name: product_category
+        description: "Natural key, primary key of the reference hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_ref_product_category')
+              field: product_category
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

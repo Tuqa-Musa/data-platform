@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: link_customer_account
+    columns:
+      - name: customer_account_hk
+
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: customer_hk
+              config : {severity : warn}
+
+      - name: account_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: account_hk
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

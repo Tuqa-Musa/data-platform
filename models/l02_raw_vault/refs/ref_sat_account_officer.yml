@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: ref_sat_account_officer
+    description: "Descriptions for account officer codes, historized."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_officer
+            - load_dts
+    columns:
+      - name: account_officer
+        tests:
+          - not_null
+          - relationships:
+              to: ref('ref_hub_account_officer')
+              field: account_officer
+      - name: load_dts
+        tests:
+          - not_null
+      - name: hashdiff
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null

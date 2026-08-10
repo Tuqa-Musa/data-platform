@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: hub_customer
+    description: "Hub table for Customer business entities."
+    columns:
+      - name: customer_hk
+        description: "Hash key for customer, primary key of the hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_hk
+
+      - name: customer_id
+        description: "Business key from source system."
+        tests:
+          - not_null
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

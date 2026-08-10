@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: ref_sat_product_category
+    description: "Descriptions for product category codes, historized."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - product_category
+            - load_dts
+    columns:
+      - name: product_category
+        tests:
+          - not_null
+          - relationships:
+              to: ref('ref_hub_product_category')
+              field: product_category
+      - name: load_dts
+        tests:
+          - not_null
+      - name: hashdiff
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null

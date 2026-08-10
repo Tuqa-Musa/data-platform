@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: link_account_branch
+    columns:
+      - name: account_branch_hk
+        tests:
+          - unique
+          - not_null
+
+      - name: account_hk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: account_hk
+
+      - name: branch_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_branch')
+              field: branch_hk
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: sat_stmt_entry_detail
+    description: "Non-historized event detail for statement entries, insert-only."
+    columns:
+      - name: stmt_entry_hk
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('link_stmt_entry')
+              field: stmt_entry_hk
+              config : {severity : warn}
+      - name: load_dts
+        tests:
+          - not_null
+      - name: stmt_entry_id
+        tests:
+          - not_null
+      - name: record_source
+        tests:
+          - not_null

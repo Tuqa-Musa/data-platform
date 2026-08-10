@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: ref_hub_account_officer
+    description: "Reference hub for account officer codes."
+    columns:
+      - name: account_officer
+        description: "Natural key, primary key of the reference hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_ref_account_officer')
+              field: account_officer
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

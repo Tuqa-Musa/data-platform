@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: hub_branch
+    description: "Hub table for Branch business entities."
+    columns:
+      - name: branch_hk
+        description: "Hash key for branch, primary key of the hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_account')
+              field: branch_hk
+
+      - name: branch_id
+        description: "Business key from source system."
+        tests:
+          - not_null
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

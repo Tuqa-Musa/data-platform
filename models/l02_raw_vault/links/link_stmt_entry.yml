@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: link_stmt_entry
+    
+    columns:
+      - name: stmt_entry_hk
+        
+        tests:
+          - unique
+          - not_null
+
+      - name: account_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: account_hk
+
+      - name: customer_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: customer_hk
+
+      - name: branch_hk
+        
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_branch')
+              field: branch_hk
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

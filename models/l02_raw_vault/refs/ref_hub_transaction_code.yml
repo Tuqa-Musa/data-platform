@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: ref_hub_transaction_code
+    description: "Reference hub for transaction codes."
+    columns:
+      - name: transaction_code
+        description: "Natural key, primary key of the reference hub."
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_ref_transaction_code')
+              field: transaction_code
+
+      - name: load_dts
+        tests:
+          - not_null
+
+      - name: source
+        tests:
+          - not_null

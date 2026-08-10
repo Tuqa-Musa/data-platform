@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: ref_sat_transaction_code
+    description: "Descriptions for transaction codes, historized."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - transaction_code
+            - load_dts
+    columns:
+      - name: transaction_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('ref_hub_transaction_code')
+              field: transaction_code
+      - name: load_dts
+        tests:
+          - not_null
+      - name: hashdiff
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
