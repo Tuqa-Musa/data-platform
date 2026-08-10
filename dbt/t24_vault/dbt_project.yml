@@ -144,6 +144,18 @@ seeds:
         ingested_ts: varchar
         created_ts: varchar
         created_dt: varchar
+    ref_account_officer:
+      +column_types:
+        account_officer: varchar
+        description: varchar
+    ref_product_category:
+      +column_types:
+        product_category: varchar
+        description: varchar
+    ref_transaction_code:
+      +column_types:
+        transaction_code: varchar
+        description: varchar
 vars:
   hash: MD5
   concat_string: '||'

@@ -1,0 +1,18 @@
+import os
+
+SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY")
+
+CACHE_CONFIG = {
+    "CACHE_TYPE": "RedisCache",
+    "CACHE_DEFAULT_TIMEOUT": 300,
+    "CACHE_KEY_PREFIX": "superset_",
+    "CACHE_REDIS_HOST": "redis",
+    "CACHE_REDIS_PORT": 6379,
+    "CACHE_REDIS_DB": 1,
+}
+
+DATA_CACHE_CONFIG = CACHE_CONFIG
+
+FEATURE_FLAGS = {
+    "DASHBOARD_CROSS_FILTERS": True,
+}

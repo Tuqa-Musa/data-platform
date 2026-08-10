@@ -2,8 +2,8 @@ target/
 dbt_packages/
 logs/
 .user.yml
-profiles.yml
 lineage.md
 dbt-env/
 __pycache__/
 *.pyc
+.env
