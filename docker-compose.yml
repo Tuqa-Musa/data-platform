@@ -16,11 +16,14 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
     AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_FERNET_KEY}
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+    AIRFLOW__DAG_PROCESSOR__DAG_FILE_PROCESSOR_TIMEOUT: 300
+    AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: 300
+    AIRFLOW__CORE__PARALLELISM: 2
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 2
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - ./airflow/logs:/opt/airflow/logs
     - ./dbt:/opt/airflow/dbt
-    - /opt/airflow/dbt/t24_vault/dbt_packages
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     postgres-airflow:
