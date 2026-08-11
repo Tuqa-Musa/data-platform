@@ -1,5 +1,6 @@
 {%- set yaml_metadata -%}
-source_model: 'ref_product_category'
+source_model: 
+  t24: 'ref_product_category'
 derived_columns:
   source: "!ref_product_category"
   load_dts: CURRENT_TIMESTAMP

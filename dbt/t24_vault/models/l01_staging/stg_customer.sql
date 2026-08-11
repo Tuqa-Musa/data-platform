@@ -1,5 +1,6 @@
 {%- set yaml_metadata -%}
-source_model: 'fbnk_customer'
+source_model:
+  t24: 'fbnk_customer'
 derived_columns:
   customer_id: "split_part(recid, ';', 1)"
   branch_id: company_book

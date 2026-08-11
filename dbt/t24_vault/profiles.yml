@@ -10,3 +10,27 @@ t24_vault:
       dbname: "{{ env_var('VAULT_DB_NAME') }}"
       schema: public
       threads: 4
+
+    lake:
+      type: duckdb
+      path: ":memory:"
+      threads: 2
+      extensions:
+        - httpfs
+        - postgres
+        - ducklake
+      attach:
+        - path: "dbname={{ env_var('VAULT_DB_NAME') }} host={{ env_var('VAULT_DB_HOST', 'localhost') }} port={{ env_var('VAULT_DB_PORT', '5432') }} user={{ env_var('VAULT_DB_USER') }} password={{ env_var('VAULT_DB_PASSWORD') }}"
+          type: postgres
+          alias: src
+          read_only: true
+        - path: "ducklake:postgres:dbname=ducklake_catalog host={{ env_var('VAULT_DB_HOST', 'localhost') }} port={{ env_var('VAULT_DB_PORT', '5432') }} user={{ env_var('VAULT_DB_USER') }} password={{ env_var('VAULT_DB_PASSWORD') }}"
+          alias: lake
+          options:
+            data_path: "s3://lake/"
+      settings:
+        s3_endpoint: "minio:9000"
+        s3_access_key_id: "{{ env_var('MINIO_ROOT_USER') }}"
+        s3_secret_access_key: "{{ env_var('MINIO_ROOT_PASSWORD') }}"
+        s3_use_ssl: false
+        s3_url_style: "path"

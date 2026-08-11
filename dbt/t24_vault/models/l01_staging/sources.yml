@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: t24
+    database: src
+    schema: public
+    tables:
+      - name: fbnk_account
+      - name: fbnk_customer
+      - name: fbnk_stmt_entry
+      - name: ref_account_officer
+      - name: ref_product_category
+      - name: ref_transaction_code

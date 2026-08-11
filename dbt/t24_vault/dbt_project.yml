@@ -170,6 +170,8 @@ models:
       +docs:
         node_color: "#4A90D9"   # blue — staging models
     l02_raw_vault:
+      +database: lake
+      +materialized: incremental
       hubs:
         +docs:
           node_color: "#5DBB63"   # green — hub_account, hub_customer, hub_branch
@@ -185,4 +187,4 @@ models:
       refs:
         +docs:
           node_color: "#D9822B"   # amber — ref_sub_product_category, ref_sub_account_officer, ref_sub_transaction_code
-    +materialized: incremental
+    

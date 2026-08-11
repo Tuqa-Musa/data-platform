@@ -20,6 +20,8 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: 300
     AIRFLOW__CORE__PARALLELISM: 2
     AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: 2
+    MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+    MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - ./airflow/logs:/opt/airflow/logs
@@ -133,8 +135,25 @@ services:
       postgres-vault:
         condition: service_healthy
     restart: unless-stopped
-
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 volumes:
   postgres-vault-data:
   postgres-airflow-data:
   superset-home:
+  minio-data:

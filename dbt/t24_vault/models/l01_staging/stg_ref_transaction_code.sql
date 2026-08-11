@@ -1,5 +1,6 @@
 {%- set yaml_metadata -%}
-source_model: 'ref_transaction_code'
+source_model: 
+  t24: 'ref_transaction_code'
 derived_columns:
   source: "!ref_transaction_code"
   load_dts: CURRENT_TIMESTAMP

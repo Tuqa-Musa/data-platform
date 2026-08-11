@@ -1,5 +1,6 @@
 {%- set yaml_metadata -%}
-source_model: 'fbnk_stmt_entry'
+source_model:
+  t24: 'fbnk_stmt_entry'
 derived_columns:
   branch_id: company_code
   source: "!t24_stmt_entry"
