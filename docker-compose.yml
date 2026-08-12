@@ -124,6 +124,12 @@ services:
       SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY}
       SUPERSET_ADMIN_USER: ${SUPERSET_ADMIN_USER}
       SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD}
+      VAULT_DB_HOST: postgres-vault
+      VAULT_DB_PORT: 5432
+      VAULT_DB_USER: ${VAULT_DB_USER}
+      VAULT_DB_PASSWORD: ${VAULT_DB_PASSWORD}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ./superset/superset_config.py:/app/pythonpath/superset_config.py
       - superset-home:/app/superset_home
