@@ -166,6 +166,7 @@ vars:
 models:
   t24_vault:
     l01_staging:
+      +database: lake    
       +materialized: view
       +docs:
         node_color: "#4A90D9"   # blue — staging models

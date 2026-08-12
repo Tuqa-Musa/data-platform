@@ -8,7 +8,7 @@ DBT_PROJECT_PATH = Path("/opt/airflow/dbt/t24_vault")
 
 profile_config = ProfileConfig(
     profile_name="t24_vault",
-    target_name="dev",
+    target_name="lake",
     profiles_yml_filepath=DBT_PROJECT_PATH / "profiles.yml",
 )
 

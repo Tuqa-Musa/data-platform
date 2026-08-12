@@ -14,7 +14,7 @@ t24_vault:
     lake:
       type: duckdb
       path: ":memory:"
-      threads: 2
+      threads: 1
       extensions:
         - httpfs
         - postgres
@@ -34,3 +34,5 @@ t24_vault:
         s3_secret_access_key: "{{ env_var('MINIO_ROOT_PASSWORD') }}"
         s3_use_ssl: false
         s3_url_style: "path"
+        ducklake_max_retry_count: 100
+        ducklake_retry_wait_ms: 100
